@@ -1,23 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Login from '../views/Login.vue'
 import ViewPatients from '../views/ViewPatients.vue'
 
+
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: ViewPatients
+      name: 'Login', // You can set Login as the default route instead
+      component: Login
     },
     {
-      path: '/add',
-      name: 'add',
-      component: () => import('../views/AddPatient.vue')
+      path: '/login',
+      redirect: '/' // Redirect to login if user tries to access /login
     },
     {
-      path: '/edit/:id',
-      name: 'edit',
-      component: () => import('../views/UpdatePatient.vue')
+      path: '/view-patients', // Define the path for the ViewPatients component
+      name: 'ViewPatients',
+      component: ViewPatients,
+      meta: { requiresAuth: true } // Optionally, add meta data to indicate that authentication is required for this route
     }
   ]
 })
